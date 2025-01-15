@@ -17,11 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from projectd.views import hello_geeks
+from user import views as user_view
+from django.contrib.auth import views as auth
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('geek/', hello_geeks),
-    # Enter the app name in following
-    # syntax for this to work
+    #path for webapp
     path('', include("webapp.urls")),
+    #path for user app
+    path('', include('user.urls')),
+    path('login/', user_view.Login, name ='login'),
+    path('logout/', auth.LogoutView.as_view(template_name ='user/index.html'), name ='logout'),
+    path('register/', user_view.register, name ='register'),
 ]
